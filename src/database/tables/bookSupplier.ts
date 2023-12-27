@@ -1,11 +1,15 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, ModelDefined } from "sequelize";
 import { sequelize } from "..";
 import { Book } from "./book";
-import { Keyword } from "./keyword";
 import { Supplier } from "./supplier";
 
+interface BookSupplierAttributes {
+  book_id: number;
+  supplier_id: number;
+}
+
 //书店书籍和供应商关联表
-export const BookSupplier= sequelize.define('BookSupplier', {
+export const BookSupplier:ModelDefined<BookSupplierAttributes,{}>= sequelize.define('BookSupplier', {
   book_id: {
     type: DataTypes.INTEGER,
     references: {
