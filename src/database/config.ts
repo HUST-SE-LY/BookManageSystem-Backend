@@ -1,6 +1,6 @@
 export const config = {
   database: {
-    database: 'moment',
+    database: 'bookSystem',
     host: 'localhost',
     port: 3306,
     user: 'root',

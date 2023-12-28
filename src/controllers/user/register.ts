@@ -29,7 +29,8 @@ export const register = async (ctx: Context) => {
       remain: 0,
     })
     const token = jwt.sign({
-      id: user.dataValues.id
+      id: user.dataValues.id,
+      type: 'user'
     }, process.env.SECRET || 'secret', {expiresIn: '24h'});
     ctx.status = 200;
     ctx.body = {
