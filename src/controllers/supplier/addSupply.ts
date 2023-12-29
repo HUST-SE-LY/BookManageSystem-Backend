@@ -4,6 +4,7 @@ import { Author } from "../../database/tables/author";
 import { Keyword } from "../../database/tables/keyword";
 import { Supply } from "../../database/tables/supply";
 import { SupplyAuthor } from "../../database/tables/supplyAuthor";
+import { SupplyKeyword } from "../../database/tables/supplyKeyword";
 
 
 interface AddSupplyParams {
@@ -32,21 +33,23 @@ export const addSupply = async (ctx: Context) => {
   for(const keyword of keywords) {
     const hasKeyword = await Keyword.findOne({where: {content: keyword}});
     if(hasKeyword) {
-      authorIds.push(hasKeyword.dataValues.id)
+      keywordIds.push(hasKeyword.dataValues.id)
     } else {
       const newKeyword = await Keyword.create({content: keyword});
-      authorIds.push(newKeyword.dataValues.id);
+      keywordIds.push(newKeyword.dataValues.id);
     }
   }
   const newSupply = await Supply.create({title, publisher, price, amount, supplier_id:supplierId})
   for(const authorId of authorIds) {
+    console.log(authorId)
+    
     await SupplyAuthor.create({
       supply_id: newSupply.dataValues.id,
       author_id: authorId,
      })
   }
   for(const keywordId of keywordIds) {
-    await SupplyAuthor.create({
+    await SupplyKeyword.create({
       supply_id: newSupply.dataValues.id,
       keyword_id: keywordId,
      })

@@ -6,7 +6,7 @@ export const getInfo = async (ctx: Context) => {
   const authInfo = ctx.auth as TokenType;
   const info = await User.findOne({ where: { id: authInfo.id } });
   if (info) {
-    const { account, id, name, phone, address } = info.dataValues;
+    const { account, id, name, phone, address, remain, credit_level:creditLevel } = info.dataValues;
     ctx.status = 200;
     ctx.body = {
       info: {
@@ -15,6 +15,8 @@ export const getInfo = async (ctx: Context) => {
         name,
         phone,
         address,
+        remain,
+        creditLevel,
       },
     };
   } else {
