@@ -1,4 +1,4 @@
 export interface TokenType {
   id: number;
-  type: 'user' | 'supplier'
+  type: 'user' | 'supplier' | 'admin'
 }

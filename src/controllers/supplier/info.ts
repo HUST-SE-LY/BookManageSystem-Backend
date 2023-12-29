@@ -1,10 +1,10 @@
 import { Context } from "koa";
 import { TokenType } from "../../type";
-import { User } from "../../database/tables/user";
+import { Supplier } from "../../database/tables/supplier";
 
 export const getInfo = async (ctx: Context) => {
   const authInfo = ctx.auth as TokenType;
-  const info = await User.findOne({ where: { id: authInfo.id } });
+  const info = await Supplier.findOne({ where: { id: authInfo.id } });
   if (info) {
     const { account, id, name, phone, address } = info.dataValues;
     ctx.status = 200;
