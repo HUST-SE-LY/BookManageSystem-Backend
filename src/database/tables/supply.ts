@@ -1,4 +1,4 @@
-import { DataTypes, ModelDefined, Optional } from "sequelize";
+import { DataTypes, Model, ModelDefined, Optional } from "sequelize";
 import { sequelize } from "..";
 import { Supplier } from "./supplier";
 
@@ -13,6 +13,10 @@ interface SupplyAttribute {
 
 type SupplyCreationAttribute = Optional<SupplyAttribute, 'id'>
 
+export interface SupplyModel extends Model<SupplyAttribute, SupplyCreationAttribute> {
+  setAuthors: Function;
+  setKeywords: Function;
+}
 //供应商发布的供书信息
 export const Supply:ModelDefined<SupplyAttribute, SupplyCreationAttribute> = sequelize.define('Supply', {
   id: {
