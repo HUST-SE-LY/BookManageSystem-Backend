@@ -17,6 +17,9 @@ export const addPurchaseRecord = async (ctx: Context) => {
     .body as addPurchaseRecordParams;
   const transaction = await sequelize.transaction();
   try {
+    let book_id:number|undefined;
+    const hasRecord = await PurchaseRecord.findOne({where:{record_id: missingRecordId}, transaction});
+    book_id = hasRecord?.dataValues.book_id
     await MissingRecord.update(
       { purchase: true },
       { where: { id: missingRecordId }, transaction }
@@ -58,7 +61,8 @@ export const addPurchaseRecord = async (ctx: Context) => {
       price,
       publisher,
       amount,
-      record_id: missingRecordId
+      record_id: missingRecordId,
+      book_id,
     },{transaction});
     await (newRecord as unknown as PurchaseRecordModel).setAuthors(authorIds, {transaction});
     await (newRecord as unknown as PurchaseRecordModel).setKeywords(keywordIds, {transaction});

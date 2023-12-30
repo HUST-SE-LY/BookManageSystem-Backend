@@ -14,11 +14,12 @@ interface PurchaseRecordAttributes {
   price: number;
   publisher: string;
   ok: boolean;//采购送达状态
+  book_id: number;
   Authors: AuthorAttributes[];
   Keywords: KeywordAttributes[];
 }
 
-type PurchaseRecordCreationAttributes = Optional<PurchaseRecordAttributes, 'id'|'ok'|'Authors'|'Keywords'>
+type PurchaseRecordCreationAttributes = Optional<PurchaseRecordAttributes, 'id'|'ok'|'Authors'|'Keywords'|"book_id">
 
 export interface PurchaseRecordModel extends Model<PurchaseRecordAttributes, PurchaseRecordCreationAttributes> {
   setAuthors: Function;
@@ -56,5 +57,9 @@ export const PurchaseRecord:ModelDefined<PurchaseRecordAttributes, PurchaseRecor
   ok: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
+  },
+  book_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
   }
 })

@@ -12,4 +12,7 @@ router.get("/missing_record", Admin.getMissingRecords);
 router.post('/purchase', Admin.addPurchaseRecord);
 router.get('/purchase', Admin.getPurchaseRecord);
 router.post('/finish_purchase', Admin.finishPurchase)
+router.get('/book', Admin.getBook)
+router.post('/price', Admin.setBookPrice);
+router.post('/sale', Admin.startSaleBook)
 export default router.routes();

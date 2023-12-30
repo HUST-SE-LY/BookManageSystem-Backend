@@ -1,17 +1,17 @@
 import { Context } from "koa";
-import { User } from "../../database/tables/user";
+
+import { Book } from "../../database/tables/book";
 import { sequelize } from "../../database";
 
-interface setCreditLevelParams {
+interface startSaleBookParams {
   id: number;
-  level: number;
 }
 
-export const setCreditLevel = async (ctx: Context) => {
-  const { id, level } = ctx.request.body as setCreditLevelParams;
+export const startSaleBook = async (ctx: Context) => {
+  const { id } = ctx.request.body as startSaleBookParams;
   const transaction = await sequelize.transaction();
   try {
-    await User.update({ credit_level: level }, { where: { id } });
+    await Book.update({ on_sale: true }, { where: { id } });
     await transaction.commit();
     ctx.status = 200;
     ctx.body = {

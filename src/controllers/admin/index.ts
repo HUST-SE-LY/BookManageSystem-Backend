@@ -9,6 +9,9 @@ import { getMissingRecords } from "./getMissingRecords";
 import { addPurchaseRecord } from "./addPurchaseRecord";
 import { finishPurchase } from "./finishPurchase";
 import { getPurchaseRecord } from "./getPurchaseRecord";
+import { getBook } from "./getBook";
+import { setBookPrice } from "./setBookPrice";
+import { startSaleBook } from "./startSaleBook";
 
 export class Admin {
   static login = login;
@@ -22,4 +25,7 @@ export class Admin {
   static addPurchaseRecord = addPurchaseRecord;
   static getPurchaseRecord = getPurchaseRecord;
   static finishPurchase= finishPurchase;
+  static getBook = getBook;
+  static setBookPrice = setBookPrice;
+  static startSaleBook = startSaleBook;
 }

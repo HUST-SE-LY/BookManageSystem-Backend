@@ -21,6 +21,9 @@ import { MissingRecord } from "./database/tables/missingRecord";
 import { PurchaseRecord } from "./database/tables/purchaseRecord";
 import { PurchaseAuthor } from "./database/tables/purchaseAuthor";
 import { PurchaseKeyword } from "./database/tables/purchaseKeyword";
+import { Book } from "./database/tables/book";
+import { BookAuthor } from "./database/tables/bookAuthor";
+import { BookKeyword } from "./database/tables/bookKeyword";
 //加载.env环境变量
 dotenv.config();
 const app: Koa = new Koa();
@@ -128,14 +131,37 @@ const port: number = 3000;
 User.sync();
 Supplier.sync();
 Supply.sync();
+Book.sync();
 Author.sync();
 Keyword.sync();
+BookAuthor.sync();
+BookKeyword.sync();
 SupplyAuthor.sync();
 SupplyKeyword.sync();
 MissingRecord.sync();
 PurchaseRecord.sync();
 PurchaseAuthor.sync();
 PurchaseKeyword.sync();
+Book.belongsToMany(Author, {
+  through: BookAuthor,
+  foreignKey: 'book_id',
+  otherKey: 'author_id'
+})
+Book.belongsToMany(Keyword, {
+  through: BookKeyword,
+  foreignKey: 'book_id',
+  otherKey: 'keyword_id',
+})
+Author.belongsToMany(Book, {
+  through: BookAuthor,
+  foreignKey: 'author_id',
+  otherKey: 'book_id',
+})
+Keyword.belongsToMany(Book, {
+  through: BookKeyword,
+  foreignKey: 'keyword_id',
+  otherKey: 'book_id',
+})
 Supply.belongsToMany(Author, {
   through: SupplyAuthor,
   foreignKey: "supply_id",

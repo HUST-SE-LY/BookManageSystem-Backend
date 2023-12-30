@@ -1,4 +1,4 @@
-import { DataTypes, ModelDefined, Optional } from "sequelize";
+import { DataTypes, Model, ModelDefined, Optional } from "sequelize";
 import { sequelize } from "..";
 import { AuthorAttributes } from "./author";
 import { KeywordAttributes } from "./keyword";
@@ -8,7 +8,7 @@ interface BookAttributes {
   title: string;
   publisher: string;
   price: number;
-  quantity: number;
+  amount: number;
   cover_image: string;
   purchase_price: number;
   contents: string;
@@ -19,6 +19,11 @@ interface BookAttributes {
 }
 
 type BookCreationAttributes = Optional<BookAttributes, 'id' | 'cover_image' | 'contents' | 'stock_location' | 'Authors' | 'Keywords' | 'on_sale' | 'price'>
+
+export interface BookModel extends Model<BookAttributes, BookCreationAttributes> {
+  setAuthors: Function;
+  setKeywords: Function;
+}
 
 //书店供书表
 export const Book: ModelDefined<BookAttributes, BookCreationAttributes> = sequelize.define('Book', {
@@ -45,7 +50,7 @@ export const Book: ModelDefined<BookAttributes, BookCreationAttributes> = sequel
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-  quantity: {
+  amount: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },

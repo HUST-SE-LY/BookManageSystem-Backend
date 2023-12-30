@@ -1,22 +1,22 @@
 import { Context } from "koa";
-import { User } from "../../database/tables/user";
 import { sequelize } from "../../database";
+import { Book } from "../../database/tables/book";
 
-interface setCreditLevelParams {
+interface setPriceParams {
   id: number;
-  level: number;
+  price: number;
 }
 
-export const setCreditLevel = async (ctx: Context) => {
-  const { id, level } = ctx.request.body as setCreditLevelParams;
+export const setBookPrice = async (ctx: Context) => {
+  const { id, price } = ctx.request.body as setPriceParams;
   const transaction = await sequelize.transaction();
   try {
-    await User.update({ credit_level: level }, { where: { id } });
+    await Book.update({price},{where: {id}});
     await transaction.commit();
     ctx.status = 200;
     ctx.body = {
       msg: "success",
-    };
+    }
   } catch (err) {
     await transaction.rollback();
     ctx.status = 500;
