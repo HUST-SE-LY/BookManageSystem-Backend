@@ -1,7 +1,7 @@
 import { DataTypes, ModelDefined, Optional } from "sequelize";
 import { sequelize } from "..";
 
-interface KeywordAttributes {
+export interface KeywordAttributes {
   id: number;
   content: string;
 }

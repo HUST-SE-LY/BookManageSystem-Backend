@@ -41,7 +41,6 @@ export const addSupply = async (ctx: Context) => {
   }
   const newSupply = await Supply.create({title, publisher, price, amount, supplier_id:supplierId})
   for(const authorId of authorIds) {
-    console.log(authorId)
     
     await SupplyAuthor.create({
       supply_id: newSupply.dataValues.id,

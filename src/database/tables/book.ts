@@ -1,5 +1,7 @@
 import { DataTypes, ModelDefined, Optional } from "sequelize";
 import { sequelize } from "..";
+import { AuthorAttributes } from "./author";
+import { KeywordAttributes } from "./keyword";
 
 interface BookAttributes {
   id: number;
@@ -8,11 +10,15 @@ interface BookAttributes {
   price: number;
   quantity: number;
   cover_image: string;
+  purchase_price: number;
   contents: string;
   stock_location: string;
+  on_sale: boolean;
+  Authors: AuthorAttributes[];
+  Keywords: KeywordAttributes[];
 }
 
-type BookCreationAttributes = Optional<BookAttributes, 'id' | 'cover_image' | 'contents' | 'stock_location'>
+type BookCreationAttributes = Optional<BookAttributes, 'id' | 'cover_image' | 'contents' | 'stock_location' | 'Authors' | 'Keywords' | 'on_sale' | 'price'>
 
 //书店供书表
 export const Book: ModelDefined<BookAttributes, BookCreationAttributes> = sequelize.define('Book', {
@@ -33,6 +39,10 @@ export const Book: ModelDefined<BookAttributes, BookCreationAttributes> = sequel
   },
   price: {
     type: DataTypes.FLOAT,
+    allowNull: true,
+  },
+  purchase_price: {
+    type: DataTypes.FLOAT,
     allowNull: false,
   },
   quantity: {
@@ -50,5 +60,10 @@ export const Book: ModelDefined<BookAttributes, BookCreationAttributes> = sequel
   stock_location: {
     type: DataTypes.STRING(100),
     allowNull: true,
-  }
+  },
+  on_sale: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+
 })

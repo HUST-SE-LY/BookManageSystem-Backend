@@ -1,34 +1,41 @@
+//书店采购记录，跟缺书记录关联
+
 import { DataTypes, Model, ModelDefined, Optional } from "sequelize";
 import { sequelize } from "..";
-import { Supplier } from "./supplier";
+import { MissingRecord } from "./missingRecord";
 import { AuthorAttributes } from "./author";
 import { KeywordAttributes } from "./keyword";
 
-export interface SupplyAttribute {
+interface PurchaseRecordAttributes {
   id: number;
-  title: string;
-  publisher: string;
-  price: number;//批发价 
+  record_id: number;
   amount: number;
-  supplier_id: number;
+  title: string;
+  price: number;
+  publisher: string;
+  ok: boolean;//采购送达状态
   Authors: AuthorAttributes[];
   Keywords: KeywordAttributes[];
 }
 
-type SupplyCreationAttribute = Optional<SupplyAttribute, 'id'|'Authors'|'Keywords'>
+type PurchaseRecordCreationAttributes = Optional<PurchaseRecordAttributes, 'id'|'ok'|'Authors'|'Keywords'>
 
-export interface SupplyModel extends Model<SupplyAttribute, SupplyCreationAttribute> {
+export interface PurchaseRecordModel extends Model<PurchaseRecordAttributes, PurchaseRecordCreationAttributes> {
   setAuthors: Function;
   setKeywords: Function;
 }
-//供应商发布的供书信息
-export const Supply:ModelDefined<SupplyAttribute, SupplyCreationAttribute> = sequelize.define('Supply', {
+
+export const PurchaseRecord:ModelDefined<PurchaseRecordAttributes, PurchaseRecordCreationAttributes> = sequelize.define("PurchaseRecord",{
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     allowNull: false,
     autoIncrement: true,
     unique: true,
+  },
+  record_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
   },
   title: {
     type: DataTypes.STRING(50),
@@ -44,14 +51,10 @@ export const Supply:ModelDefined<SupplyAttribute, SupplyCreationAttribute> = seq
   },
   amount: {
     type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  supplier_id: {
-    type: DataTypes.INTEGER,  
     allowNull: false,
-    references: {
-      model: Supplier,
-      key: 'id'
-    }
+  },
+  ok: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
   }
 })

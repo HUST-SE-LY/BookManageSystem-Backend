@@ -17,6 +17,10 @@ import { Author } from "./database/tables/author";
 import { Keyword } from "./database/tables/keyword";
 import { SupplyAuthor } from "./database/tables/supplyAuthor";
 import { SupplyKeyword } from "./database/tables/supplyKeyword";
+import { MissingRecord } from "./database/tables/missingRecord";
+import { PurchaseRecord } from "./database/tables/purchaseRecord";
+import { PurchaseAuthor } from "./database/tables/purchaseAuthor";
+import { PurchaseKeyword } from "./database/tables/purchaseKeyword";
 //加载.env环境变量
 dotenv.config();
 const app: Koa = new Koa();
@@ -128,6 +132,10 @@ Author.sync();
 Keyword.sync();
 SupplyAuthor.sync();
 SupplyKeyword.sync();
+MissingRecord.sync();
+PurchaseRecord.sync();
+PurchaseAuthor.sync();
+PurchaseKeyword.sync();
 Supply.belongsToMany(Author, {
   through: SupplyAuthor,
   foreignKey: "supply_id",
@@ -147,6 +155,39 @@ Keyword.belongsToMany(Supply, {
   through: SupplyKeyword,
   foreignKey: "keyword_id",
   otherKey: "supply_id",
+});
+Author.belongsToMany(PurchaseRecord, {
+  through: PurchaseAuthor,
+  foreignKey: "author_id",
+  otherKey: "purchase_id",
+});
+PurchaseRecord.belongsToMany(Author, {
+  through: PurchaseAuthor,
+  foreignKey: "purchase_id",
+  otherKey: "author_id",
+});
+PurchaseRecord.belongsToMany(Keyword, {
+  through: PurchaseKeyword,
+  foreignKey: "purchase_id",
+  otherKey: "keyword_id",
+});
+Keyword.belongsToMany(PurchaseRecord, {
+  through: PurchaseKeyword,
+  foreignKey: "keyword_id",
+  otherKey: "purchase_id",
+});
+Supplier.hasMany(Supply, {
+  foreignKey: "supplier_id",
+});
+Supply.belongsTo(Supplier, { foreignKey: "supplier_id" });
+Supply.hasMany(MissingRecord, {
+  foreignKey: "supply_id",
+});
+MissingRecord.belongsTo(Supply, {
+  foreignKey: "supply_id",
+});
+MissingRecord.hasMany(PurchaseRecord, {
+  foreignKey: "record_id",
 });
 
 app.listen(port, () => {
