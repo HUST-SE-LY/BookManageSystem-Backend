@@ -31,26 +31,23 @@ export const finishPurchase = async (ctx: Context) => {
     if (!purchaseRecord) throw new Error(`purchaseRecord not found`);
     const { title, price, amount, publisher, Authors, Keywords, book_id } =
       purchaseRecord?.dataValues;
-    if (book_id) {
-      await Book.increment({amount}, {
-        where: {id: book_id},
-        transaction
-      })
-    } else {
-      const AuthorIds = Authors.map((el) => el.id);
-      const KeywordIds = Keywords.map((el) => el.id);
-      const book = await Book.create(
-        { title, purchase_price: price, amount, publisher },
-        { transaction }
-      );
-      await PurchaseRecord.update({book_id: book.dataValues.id},{where: {id}});
-      await (book as unknown as BookModel).setAuthors(AuthorIds, {
-        transaction,
-      });
-      await (book as unknown as BookModel).setKeywords(KeywordIds, {
-        transaction,
-      });
-    }
+
+    const AuthorIds = Authors.map((el) => el.id);
+    const KeywordIds = Keywords.map((el) => el.id);
+    const book = await Book.create(
+      { title, purchase_price: price, amount, publisher },
+      { transaction }
+    );
+    await PurchaseRecord.update(
+      { book_id: book.dataValues.id },
+      { where: { id } }
+    );
+    await (book as unknown as BookModel).setAuthors(AuthorIds, {
+      transaction,
+    });
+    await (book as unknown as BookModel).setKeywords(KeywordIds, {
+      transaction,
+    });
 
     await MissingRecord.destroy({
       where: { id: purchaseRecord?.dataValues.record_id },

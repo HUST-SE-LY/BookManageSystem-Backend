@@ -36,7 +36,7 @@ export const PurchaseRecord:ModelDefined<PurchaseRecordAttributes, PurchaseRecor
   },
   record_id: {
     type: DataTypes.INTEGER,
-    allowNull: true,
+    allowNull: false,
   },
   title: {
     type: DataTypes.STRING(50),
