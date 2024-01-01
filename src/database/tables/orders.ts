@@ -1,21 +1,23 @@
-import { DataTypes, Optional } from "sequelize";
+import { DataTypes, ModelDefined, Optional } from "sequelize";
 import { sequelize } from "..";
 
 interface OrderAttributes {
   id: number;
-  date: string;
+  date: Date;
   user_id: number;
   book_id: number;
   amount: number;
   price: number;
   address: string;
   has_deliver: boolean;
+  has_get: boolean;
+  total_price: number;
 }
 
-type OrderCreationDeliver = Optional<OrderAttributes, 'id'|'has_deliver'>
+type OrderCreationAttributes = Optional<OrderAttributes, 'id'|'has_deliver'|'has_get'>
 
 //订单
-export const Order = sequelize.define('Order', {
+export const Order:ModelDefined<OrderAttributes, OrderCreationAttributes> = sequelize.define('Order', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -51,5 +53,14 @@ export const Order = sequelize.define('Order', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: false,
+  },
+  has_get: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  total_price: {
+    type: DataTypes.FLOAT,
+    allowNull: false
   }
 })

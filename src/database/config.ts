@@ -4,6 +4,6 @@ export const config = {
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: '1596087252ly@'
+    password: process.env.DB_PSW as string
   }
 }

@@ -12,6 +12,9 @@ import { getPurchaseRecord } from "./getPurchaseRecord";
 import { getBook } from "./getBook";
 import { setBookPrice } from "./setBookPrice";
 import { startSaleBook } from "./startSaleBook";
+import { UnSaleBook } from "./setUnsale";
+import { getOrders } from "./getOrders";
+import { startDeliver } from "./startDeliver";
 
 export class Admin {
   static login = login;
@@ -28,4 +31,7 @@ export class Admin {
   static getBook = getBook;
   static setBookPrice = setBookPrice;
   static startSaleBook = startSaleBook;
+  static unSaleBook = UnSaleBook;
+  static getOrders = getOrders;
+  static startDeliver = startDeliver;
 }

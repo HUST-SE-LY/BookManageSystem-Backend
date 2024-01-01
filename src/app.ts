@@ -24,6 +24,7 @@ import { PurchaseKeyword } from "./database/tables/purchaseKeyword";
 import { Book } from "./database/tables/book";
 import { BookAuthor } from "./database/tables/bookAuthor";
 import { BookKeyword } from "./database/tables/bookKeyword";
+import { Order } from "./database/tables/orders";
 //加载.env环境变量
 dotenv.config();
 const app: Koa = new Koa();
@@ -142,6 +143,7 @@ MissingRecord.sync();
 PurchaseRecord.sync();
 PurchaseAuthor.sync();
 PurchaseKeyword.sync();
+Order.sync();
 Book.belongsToMany(Author, {
   through: BookAuthor,
   foreignKey: 'book_id',

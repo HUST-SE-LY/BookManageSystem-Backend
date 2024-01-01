@@ -15,4 +15,7 @@ router.post('/finish_purchase', Admin.finishPurchase)
 router.get('/book', Admin.getBook)
 router.post('/price', Admin.setBookPrice);
 router.post('/sale', Admin.startSaleBook)
+router.post('/unsale', Admin.unSaleBook);
+router.get('/order', Admin.getOrders);
+router.post('/deliver', Admin.startDeliver);
 export default router.routes();
