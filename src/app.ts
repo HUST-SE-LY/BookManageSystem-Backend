@@ -87,7 +87,6 @@ app.use(async (ctx, next) => {
         let type;
         if (ctx.url === "/api/user_type") {
           const res = jwt.decode(token, { complete: true });
-          console.log(res?.payload);
           type = (res?.payload as TokenType).type;
         }
         try {

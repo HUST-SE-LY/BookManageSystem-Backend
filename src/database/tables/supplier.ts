@@ -3,12 +3,12 @@ import { sequelize } from "..";
 import bcrypt from 'bcryptjs'
 
 interface SupplierAttributes {
-  id: number;
-  account: string;
-  password: string;
-  name: string;
-  address: string;
-  phone: string;
+  id: number;//id
+  account: string;//账号
+  password: string;//密码
+  name: string;//名称
+  address: string;//出货地址
+  phone: string;//手机号
 }
 
 type SupplierCreationAttributes = Optional<SupplierAttributes, 'id'>

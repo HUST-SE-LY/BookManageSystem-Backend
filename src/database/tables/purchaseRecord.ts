@@ -7,12 +7,12 @@ import { AuthorAttributes } from "./author";
 import { KeywordAttributes } from "./keyword";
 
 interface PurchaseRecordAttributes {
-  id: number;
-  record_id: number;
-  amount: number;
-  title: string;
-  price: number;
-  publisher: string;
+  id: number;//id
+  record_id: number;//对应缺书记录的id
+  amount: number;//采购数量
+  title: string;//书名
+  price: number;//价格
+  publisher: string;//出版商
   ok: boolean;//采购送达状态
   book_id: number;
   Authors: AuthorAttributes[];

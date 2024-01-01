@@ -29,7 +29,7 @@ export const finishPurchase = async (ctx: Context) => {
       ],
     });
     if (!purchaseRecord) throw new Error(`purchaseRecord not found`);
-    const { title, price, amount, publisher, Authors, Keywords, book_id } =
+    const { title, price, amount, publisher, Authors, Keywords } =
       purchaseRecord?.dataValues;
 
     const AuthorIds = Authors.map((el) => el.id);

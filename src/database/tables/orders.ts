@@ -2,16 +2,16 @@ import { DataTypes, ModelDefined, Optional } from "sequelize";
 import { sequelize } from "..";
 
 interface OrderAttributes {
-  id: number;
-  date: Date;
-  user_id: number;
-  book_id: number;
-  amount: number;
-  price: number;
-  address: string;
-  has_deliver: boolean;
-  has_get: boolean;
-  total_price: number;
+  id: number;//订单号
+  date: Date;//日期
+  user_id: number;//用户id
+  book_id: number;//书号
+  amount: number;//数量
+  price: number;//价格
+  address: string;//地址
+  has_deliver: boolean;//是否发货
+  has_get: boolean;//是否收货
+  total_price: number;//总价
 }
 
 type OrderCreationAttributes = Optional<OrderAttributes, 'id'|'has_deliver'|'has_get'>

@@ -5,10 +5,10 @@ import { sequelize } from "..";
 import { Supply, SupplyAttribute } from "./supply";
 
 interface MissingRecordAttributes {
-  id: number;
-  supply_id: number;
-  amount: number;
-  purchase: boolean;
+  id: number;//id
+  supply_id: number;//对应供货信息的id
+  amount: number;//登记数目
+  purchase: boolean;//是否已采购
   Supply: SupplyAttribute;
 }
 

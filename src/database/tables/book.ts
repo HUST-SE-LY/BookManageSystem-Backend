@@ -4,16 +4,16 @@ import { AuthorAttributes } from "./author";
 import { KeywordAttributes } from "./keyword";
 
 interface BookAttributes {
-  id: number;
-  title: string;
-  publisher: string;
-  price: number;
-  amount: number;
-  cover_image: string;
-  purchase_price: number;
-  contents: string;
-  stock_location: string;
-  on_sale: boolean;
+  id: number;//书号
+  title: string;//书名
+  publisher: string;//出版商
+  price: number;//单价
+  amount: number;//数量
+  cover_image: string;//封面
+  purchase_price: number;//批发价
+  contents: string;//目录
+  stock_location: string;//存储位置
+  on_sale: boolean;//是否上架
   Authors: AuthorAttributes[];
   Keywords: KeywordAttributes[];
 }

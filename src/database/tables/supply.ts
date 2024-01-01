@@ -5,12 +5,12 @@ import { AuthorAttributes } from "./author";
 import { KeywordAttributes } from "./keyword";
 
 export interface SupplyAttribute {
-  id: number;
-  title: string;
+  id: number;//id
+  title: string;//书名
   publisher: string;
   price: number;//批发价 
-  amount: number;
-  supplier_id: number;
+  amount: number;//供货量
+  supplier_id: number;//供货商id
   Authors: AuthorAttributes[];
   Keywords: KeywordAttributes[];
 }
